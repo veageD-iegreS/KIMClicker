@@ -49,7 +49,7 @@ public class GUI extends JFrame {
 
         bottomPanel.add(cookieButton);
         bottomPanel.add(upgradeButton);
-        
+
         add(topPanel);
         add(bottomPanel);
 
