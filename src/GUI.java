@@ -10,7 +10,7 @@ public class GUI extends JFrame {
     public GUI(Cookies cookies) {
         this.cookies = cookies;
 
-        setTitle("CCP Clicker");
+        setTitle("中国共产党");
         setIconImage(new ImageIcon("src/ccp.png").getImage());
         setSize(1920, 1080);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -25,7 +25,7 @@ public class GUI extends JFrame {
         topPanel.setOpaque(false); // transparent
 
         cookieLabel = new JLabel();
-        cookieLabel.setFont(new Font("Arial", Font.BOLD, 50));
+        cookieLabel.setFont(new Font("Serif", Font.BOLD, 50));
         cookieLabel.setOpaque(true);
         cookieLabel.setBackground(Color.RED);
         cookieLabel.setForeground(Color.BLACK);
@@ -38,12 +38,12 @@ public class GUI extends JFrame {
         bottomPanel.setLayout(new FlowLayout());
 
 
-        JButton cookieButton = new JButton("Social Credit");
-        JButton upgradeButton = new JButton("Upgrade");
-        JButton autoButton = new JButton("Autoclicker");
+        JButton cookieButton = new JButton("社會信用體系");
+        JButton upgradeButton = new JButton("升級費用");
+        JButton autoButton = new JButton("自動答題器成本");
 
 
-        Font buttonFont = new Font("Arial", Font.BOLD, 30);
+        Font buttonFont = new Font("Serif", Font.BOLD, 30);
 
         cookieButton.setForeground(Color.GREEN);
         upgradeButton.setForeground(Color.YELLOW);
@@ -105,11 +105,11 @@ public class GUI extends JFrame {
 
     private void updateLabel() {
         cookieLabel.setText(
-                "Social Credit: " + cookies.getCookieCount()
-                        + " | CPC: " + cookies.getCookiesPerClick()
-                        + " | CPS: " + cookies.getCookiesPerSecond()
-                        + " | Upgrade Cost: " + cookies.getClickUpgradeCost()
-                        + " | Auto Cost: " + cookies.getAutoClickerCost()
+                "社會信用體系: " + cookies.getCookieCount()
+                        + " | 每次點擊的社會信用: " + cookies.getCookiesPerClick()
+                        + " | 每秒社會信用: " + cookies.getCookiesPerSecond()
+                        + " | 升級費用: " + cookies.getClickUpgradeCost()
+                        + " | 自動答題器成本: " + cookies.getAutoClickerCost()
         );
     }
 }
