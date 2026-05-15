@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.Color;
 
 public class GUI extends JFrame {
 
@@ -9,50 +10,106 @@ public class GUI extends JFrame {
     public GUI(Cookies cookies) {
         this.cookies = cookies;
 
-        setTitle("Cookie Clicker");
-        setSize(500, 300);
+        setTitle("CCP Clicker");
+        setIconImage(new ImageIcon("src/ccp.png").getImage());
+        setSize(1920, 1080);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        ImageIcon backgroundIcon = new ImageIcon("kju.png");
+        ImageIcon backgroundIcon = new ImageIcon("src/xj.png");
 
         JLabel backgroundLabel = new JLabel(backgroundIcon);
-
         backgroundLabel.setLayout(new GridLayout(2, 1));
-
         setContentPane(backgroundLabel);
 
         JPanel topPanel = new JPanel();
-        cookieLabel = new JLabel("Cookies: " + cookies.getCookieCount());
+        topPanel.setOpaque(false); // transparent
+
+        cookieLabel = new JLabel();
+        cookieLabel.setFont(new Font("Arial", Font.BOLD, 50));
+        cookieLabel.setOpaque(true);
+        cookieLabel.setBackground(Color.RED);
+        cookieLabel.setForeground(Color.BLACK);
         topPanel.add(cookieLabel);
 
+
+
         JPanel bottomPanel = new JPanel();
+        bottomPanel.setOpaque(false);
+        bottomPanel.setLayout(new FlowLayout());
 
-        JButton cookieButton = new JButton("Cookie");
 
-        ImageIcon cookieIcon = new ImageIcon("bmb.png");
-        cookieButton.setIcon(cookieIcon);
-
+        JButton cookieButton = new JButton("Social Credit");
         JButton upgradeButton = new JButton("Upgrade");
+        JButton autoButton = new JButton("Autoclicker");
 
-        ImageIcon upgradeIcon = new ImageIcon("urnm.png");
-        upgradeButton.setIcon(upgradeIcon);
+
+        Font buttonFont = new Font("Arial", Font.BOLD, 30);
+
+        cookieButton.setForeground(Color.GREEN);
+        upgradeButton.setForeground(Color.YELLOW);
+        autoButton.setForeground(Color.ORANGE);
+
+        cookieButton.setFont(buttonFont);
+        upgradeButton.setFont(buttonFont);
+        autoButton.setFont(buttonFont);
+
+
+        cookieButton.setIcon(new ImageIcon("src/sc.png"));
+        upgradeButton.setIcon(new ImageIcon("src/jc.png"));
+        autoButton.setIcon(new ImageIcon("src/mi.png"));
+
+
+        setupButton(cookieButton);
+        setupButton(upgradeButton);
+        setupButton(autoButton);
+
 
         cookieButton.addActionListener(e -> {
             cookies.addCookies();
-            cookieLabel.setText("Cookies: " + cookies.getCookieCount());
+            updateLabel();
         });
-
         upgradeButton.addActionListener(e -> {
             cookies.upgradeClick();
-            cookieLabel.setText("Cookies: " + cookies.getCookieCount());
+            updateLabel();
+        });
+        autoButton.addActionListener(e -> {
+            cookies.upgradeSecond();
+            updateLabel();
         });
 
         bottomPanel.add(cookieButton);
         bottomPanel.add(upgradeButton);
+        bottomPanel.add(autoButton);
 
         add(topPanel);
         add(bottomPanel);
 
+        Timer guiTimer = new Timer(100, e -> updateLabel());
+        guiTimer.start();
+
+        updateLabel();
         setVisible(true);
+    }
+
+    private void setupButton(JButton button) {
+        button.setOpaque(false);
+        button.setContentAreaFilled(false);
+        button.setBorderPainted(false);
+        button.setFocusPainted(false);
+
+
+        button.setHorizontalTextPosition(SwingConstants.CENTER);
+        button.setVerticalTextPosition(SwingConstants.BOTTOM);
+    }
+
+
+    private void updateLabel() {
+        cookieLabel.setText(
+                "Social Credit: " + cookies.getCookieCount()
+                        + " | CPC: " + cookies.getCookiesPerClick()
+                        + " | CPS: " + cookies.getCookiesPerSecond()
+                        + " | Upgrade Cost: " + cookies.getClickUpgradeCost()
+                        + " | Auto Cost: " + cookies.getAutoClickerCost()
+        );
     }
 }
